@@ -10,22 +10,22 @@ namespace TentMonitorDesk2021
 	{
 		[Key]
 		public int pKey { get; set; }
-	  public decimal maxVPD { get; set; }
+		public decimal maxVPD { get; set; }
 		public decimal minVPD { get; set; }
 		public decimal optTempDay { get; set; }
 		public decimal optRHDay { get; set; }
-		public decimal optTempNight { get; set; }
-		public decimal optRHNight { get; set; }
 		public decimal nightStart { get; set; }
 		public decimal nightEnd { get; set; }
 		public decimal tempRangeFactor { get; set; }
 		public decimal RHRangeFactor { get; set; }
 		public decimal lightsLPD { get; set; }
-		public decimal darkLPD { get; set; }
 
 		public decimal TempCalFactor { get; set; }
 		public decimal RHCalFactor { get; set; }
-//		public int TryTempTime { get; set; }
+		public decimal maxNightRH { get; set; }
+		public decimal maxNightTemp { get; set; }
+
+		//		public int TryTempTime { get; set; }
 
 	}
 }

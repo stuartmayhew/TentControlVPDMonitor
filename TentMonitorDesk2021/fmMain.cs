@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,10 +44,33 @@ namespace TentMonitorDesk2021
 
         private void fmMain_Load(object sender, EventArgs e)
         {
-            this.tentLogTableAdapter.Fill(this.tentConrolDataSet.TentLog);
+            // TODO: This line of code loads data into the 'tentConrolDataSet.Settings' table. You can move, or remove it, as needed.
+            this.settingsTableAdapter.Fill(this.tentConrolDataSet.Settings);
+            ////this.tentLogTableAdapter.GetCurrent(this.tentConrolDataSet.TentLog);
+            //chart1.DataSource = tentLogTableAdapter.GetCurrent(this.tentConrolDataSet.TentLog);
+            //chart2.DataSource = tentLogTableAdapter.GetDaily(this.tentConrolDataSet.TentLog);
+            //chart1.DataBind();
+            //chart2.DataBind();
+            RefreshCharts();
             settings = db.Settings.FirstOrDefault();
             MasterDeviceList = new DeviceList();
             MasterDeviceList.deviceList = SetupDevices();
+        }
+
+        private void RefreshCharts()
+        {
+            var connStr = ConfigurationManager.ConnectionStrings["TentData2"].ConnectionString;
+            var dg = new clsDataGetter(connStr);
+            string sql = "SELECT TOP (50) LogDate, VPD FROM TentLog ORDER BY LogDate DESC";
+            DataSet ds = dg.GetDataSet(sql);
+            chart1.DataSource = ds;
+            chart1.DataBind();
+
+
+            sql = "SELECT CAST(LogDate AS date) AS LogDate, AVG(VPD) AS VPD FROM TentLog GROUP BY CAST(LogDate AS date) ORDER BY LogDate DESC";
+            var ds2 = dg.GetDataSet(sql);
+            chart2.DataSource = ds2;
+            chart2.DataBind();
         }
 
 
@@ -63,11 +88,58 @@ namespace TentMonitorDesk2021
             passTimer.Start();
         }
 
+        private void DoNight()
+        {
+
+            probeData = new ProbeData();
+
+            MasterDeviceList = new DeviceList();
+            MasterDeviceList.deviceList = SetupDevices();
+
+            if (probeData.Humidity > settings.maxNightRH)
+                LowerRH("Do Night");
+            else
+                RaiseRH("Do Night");
+
+            AddDialog("Temp: " + probeData.Temp + "  RH: " + probeData.Humidity);
+            if (probeData.Temp > settings.maxNightTemp)
+                TurnOnAC("Do Night");
+            else
+            {
+                TurnOffAC("Do Night");
+            }
+            SetLabels();
+            lblVPD.Text = "NIGHT MODE DON'T CARE";
+        }
+
         public void runSession()
         {
-            
+            bool nightMode = false;
+            bool wakeUp = false;
+            var milTimeStr = DateTime.Now.ToString("HHmm");
+            var settingsStartStr = settings.nightStart.ToString("##.");
+            var settingsEndStr = settings.nightEnd.ToString("##.");
+
+
+            var currTimeInt = int.Parse(milTimeStr);
+            var startTimeInt = int.Parse(settingsStartStr);
+            var endTimeInt = int.Parse(settingsEndStr);
+            var wakeTimeInt = endTimeInt - 70;
+
+            if (currTimeInt >= startTimeInt && currTimeInt < wakeTimeInt)
+            {
+                nightMode = true;
+            }
+
+            if (nightMode)
+            {
+                DoNight();
+                lblVPD.Text = "NIGHT MODE DON'T CARE";
+                return;
+            }
+                
             SessionCount++;
-            if (SessionCount == 60)
+            if (SessionCount % 60 == 0)
             {
                 Reset();
                 return;
@@ -76,7 +148,7 @@ namespace TentMonitorDesk2021
             LogData(probeData);
             AddDialog("Probe Data: Temp = " + probeData.Temp + " RH = " + probeData.Humidity);
 
-            if(probeData.Temp > 86.00M)
+            if(probeData.Temp > 86 )
             {
                 if (AC1.State == 0)
                 {
@@ -94,26 +166,46 @@ namespace TentMonitorDesk2021
                 }
             }
 
-            if (probeData.Humidity > 66.0M)
+            if (probeData.Humidity > 68.0M)
             {
-                LowerHeat("humidity too high");
+                TurnOnAC("humidity too high");
+                LowerRH("humidity too high");
             }
 
+            if (probeData.VPD < settings.minVPD || probeData.VPD > settings.maxVPD)
+            {
+                if (VPDRangeLow(probeData.VPD))
+                {
+                    RaiseVPD();
+                }
 
-            if (probeData.VPD < 1M || probeData.VPD > 1.3M)
-            {
-                GetBestTemp();
-                GetBestHumidity();
+                else if (VPDRangeHigh(probeData.VPD))
+                {
+                    LowerVPD();
+                }
             }
-            if (probeData.VPD > .8M && probeData.VPD < 1.35M)
-            {
-                inRangeCount++;
-                CheckHumidity();
-            }
-            else
-            {
-                outRangeCount++;
-            }
+            CheckHumidity();
+
+
+
+            //if (probeData.VPD < settings.minVPD || probeData.VPD > settings.maxVPD)
+            //{
+            //    GetBestTemp();
+            //    GetBestHumidity();
+            //}
+            //if (probeData.VPD > settings.minVPD && probeData.VPD < settings.maxVPD)
+            //{
+            //    CheckHumidity();
+            //}
+
+            //if (probeData.Temp < settings.optTempDay + 2 && probeData.Humidity > GetHighRH(probeData.Temp))
+            //{
+            //    RaiseHeat("temp too low, humid too high");
+            //}
+            //else
+            //{
+            //    LowerHeat("temp is good, rh is good, ac on");
+            //}
 
 
 
@@ -121,19 +213,54 @@ namespace TentMonitorDesk2021
 
             SetLabels();
 
-            if (lbActionList.Items.Count > 5)
-                lbActionList.Items.Clear();
+            //if (lbActionList.Items.Count > 5)
+            //    lbActionList.Items.Clear();
             foreach(var act in probeData.ActionList)
             {
                 lbActionList.Items.Add(act);
             }
+            lbActionList.SelectedIndex = lbActionList.Items.Count - 1;
 
+            chart1.DataSource = tentLogTableAdapter.GetCurrent(this.tentConrolDataSet.TentLog);
+            chart2.DataSource = tentLogTableAdapter.GetDaily(this.tentConrolDataSet.TentLog);
 
             chart1.DataBind();
             chart1.Refresh();
 
             chart2.DataBind();
             chart2.Refresh();
+        }
+
+        private void LowerVPD()
+        {
+            RaiseRH("Lower VPD");
+            if (probeData.Temp < 85)
+                TurnOffAC("Lower VPD");
+        }
+
+        private void RaiseVPD()
+        {
+            LowerRH("Raise VPD");
+            if (probeData.Temp > 65)
+                TurnOnAC("RaiseVPD");
+        }
+
+        private bool VPDRangeHigh(decimal vPD)
+        {
+            var vpdRange = settings.maxVPD + settings.minVPD;
+            var mid = vpdRange / 2;
+            if (vPD > (mid))
+                return true;
+            else return false;
+        }
+
+        private bool VPDRangeLow(decimal vPD)
+        {
+            var vpdRange = settings.maxVPD + settings.minVPD;
+            var mid = vpdRange / 2;
+            if (vPD < (mid))
+                return true;
+            else return false;
         }
 
         private void CheckHumidity()
@@ -144,10 +271,12 @@ namespace TentMonitorDesk2021
             if (probeData.Humidity < avg)
             {
                 RaiseRH("Check Humidity");
+                TurnOnAC("Check Humidity");
             }
             else
             {
                 LowerRH("Check Humidity");
+                TurnOffAC("Check Humidity");
             }
         }
 
@@ -161,11 +290,11 @@ namespace TentMonitorDesk2021
             if (probeData.Humidity > highRHCurrent)
             {
                 LowerRH("Get Best Humidity");
-                if (Humidifier.State == 0 && Dehumid.State == 1)
-                {
-                    var newTarget = GetNewTemp(probeData.Humidity);
-                    RethinkTargetTemp(newTarget);
-                }
+                //if (Humidifier.State == 0 && Dehumid.State == 1)
+                //{
+                //    var newTarget = GetNewTemp(probeData.Humidity);
+                //    RethinkTargetTemp(newTarget);
+                //}
             }
             if (probeData.Humidity < lowRH)
             {
@@ -181,41 +310,43 @@ namespace TentMonitorDesk2021
             if (startSessionTemp == 0)
                 startSessionTemp = probeData.Temp;
 
-            if (targetTemp > 0)
-                tryTemp = targetTemp;
-            else
-                tryTemp = settings.optTempDay;
+            tryTemp = probeData.Temp;
 
             if (probeData.Temp < tryTemp)
             { //toocold
                 // see if humidity too high. 
                 lowRH = GetLowRH(tryTemp);
                 highRH = GetHighRH(tryTemp);
-                if (probeData.Humidity < highRH && probeData.Humidity > lowRH)
+                if (probeData.Humidity > highRH)
                 {
                     LowerRH("Get Best Temp");
                 }
-                RaiseHeat("Get Best Temp");
-            }
-            else if (probeData.Temp >= tryTemp)
-            { //too hot
-                LowerHeat("Get Best Temp");
-                lowRH = GetLowRH(tryTemp);
-                highRH = GetHighRH(tryTemp);
-                
-                if (probeData.Humidity < highRH && probeData.Humidity > lowRH)
+                else if (probeData.Humidity < lowRH)
                 {
                     RaiseRH("Get Best Temp");
                 }
-                else if (probeData.Humidity > highRH && probeData.Temp < (tryTemp - 2))
+                    
+                TurnOffAC("Get Best Temp");
+            }
+            else if (probeData.Temp >= tryTemp)
+            { //too hot
+                TurnOnAC("Get Best Temp");
+                lowRH = GetLowRH(tryTemp);
+                highRH = GetHighRH(tryTemp);
+
+                if (probeData.Humidity > highRH)
                 {
                     LowerRH("Get Best Temp");
                 }
+                else if (probeData.Humidity < lowRH)
+                {
+                    RaiseRH("Get Best Temp");
+                }
             }
-            if (probeData.VPD < .9M)
-                RethinkTargetTemp();
-            else if (probeData.VPD > 1.3M)
-                RethinkTargetTemp();
+            //if (probeData.VPD < settings.minVPD)
+            //    RethinkTargetTemp();
+            //else if (probeData.VPD > settings.maxVPD)
+            //    RethinkTargetTemp();
             SetLabels();
 
         }
@@ -226,20 +357,22 @@ namespace TentMonitorDesk2021
                 target = settings.optTempDay;
             if (target > 0 && target <= 85)
                 targetTemp = (int)Math.Floor(target);
-            else
+            else if (probeData.Humidity > settings.optRHDay)
                 targetTemp = 85;
+            else
+                targetTemp = 80;
 
             lowRH = GetLowRH(targetTemp);
             highRH = GetHighRH(targetTemp);
 
             var dList = new DeviceList();
-            if (probeData.Temp <= targetTemp - 1)
+            if (probeData.Temp <= targetTemp)
             {
-                RaiseHeat("RethinkTargetTemp");
+                TurnOffAC("RethinkTargetTemp");
             }
-            else if (probeData.Temp > targetTemp + 2)
+            else if (probeData.Temp > targetTemp)
             {
-                LowerHeat("RethinkTargetTemp");
+                TurnOnAC("RethinkTargetTemp");
             }
             SetLabels();
        }
@@ -264,7 +397,7 @@ namespace TentMonitorDesk2021
 
         private void AddListBoxText(string v)
         {
-            if (lbDialog.Items.Count > 10)
+            if (lbDialog.Items.Count > 5)
                 lbDialog.Items.Clear();
             lbDialog.Items.Add(v);
         }
@@ -280,20 +413,32 @@ namespace TentMonitorDesk2021
 
             var vpdOutOfRange = false;
             var currVPD = probeData.VPD;
-            if (currVPD < .9M || currVPD > 1.35M)
+            if (currVPD < (settings.minVPD - .1M)  || currVPD > (settings.maxVPD + .1M))
                 vpdOutOfRange = true;
 
-            lblCurrTemp.Text = "Current Temp: " + probeData.Temp.ToString();
+            lblCurrTemp.Text = "Current Temp: " + probeData.Temp.ToString("#.##");
             var lRH = GetLowRH(probeData.Temp);
             var hRH = GetHighRH(probeData.Temp);
             lbCurrRange.Text = "Curr RH Range: " + lRH + " to " + hRH;
 
             var dList = new DeviceList();
 
-          
-            lblAvg.Text = "Average VPD: " + db.TentLogs.Average(x => x.VPD).ToString();
-            lblLowVPD.Text = "Low VPD:" + db.TentLogs.Min(x => x.VPD).ToString();
-            lblHighVPD.Text = "High VPD:" + db.TentLogs.Max(x => x.VPD).ToString();
+
+            var vpdavg = db.TentLogs.Average(x => x.VPD);
+            lblAvg.Text = "Average VPD: " + vpdavg.ToString();
+
+            var connStr = ConfigurationManager.ConnectionStrings["TentData2"].ConnectionString;
+            var dg = new clsDataGetter(connStr);
+
+            int badSession = dg.GetScalarInteger("select count(*) FROM TentLog WHERE VPD < " + (settings.minVPD - .1M).ToString() + "  OR VPD > " + (settings.maxVPD + .1M).ToString());
+            int goodSession = dg.GetScalarInteger("select count(*) FROM TentLog WHERE VPD >" + (settings.minVPD - .1M).ToString() + "  AND VPD  < " + (settings.maxVPD + .1M).ToString());
+            int sessionCount = badSession + goodSession;
+            var diff = (decimal)badSession / sessionCount;
+            var percent = 100 - (diff * 100);
+
+            lblLowVPD.Text = "Minutes out of VPD range: " + badSession.ToString();
+            lblHighVPD.Text = "Minutes in VPD range: " + goodSession.ToString();
+            lblPercent.Text = "Batting Avg: " + percent.ToString("#.##") + "%";
 
 
             AC1.State = dList.GetState(AC1);
@@ -324,7 +469,7 @@ namespace TentMonitorDesk2021
             lblTargetRH.Text = "RH Range: " + lowRH + " to " + highRH;
 
             lblVPD.ForeColor = Color.Red;
-            lblVPD.Text = "VPD = " + currVPD.ToString();
+            lblVPD.Text = "VPD = " + currVPD.ToString("#.##");
             if (vpdOutOfRange == false)
                 lblVPD.ForeColor = Color.Green;
         }
@@ -339,42 +484,64 @@ namespace TentMonitorDesk2021
             {
                 AddDialog(ex.Message);
             }
-            chart1.DataSource = tentLogTableAdapter.Fill(this.tentConrolDataSet.TentLog);
-            chart2.DataSource = tentLogTableAdapter.FillBy(this.tentConrolDataSet.TentLog);
-
-            chart1.DataBind();
-            chart2.DataBind();
+            RefreshCharts();
         }
-        private decimal GetHighRH(decimal temp)
+        private decimal GetLowRH(decimal temp)
         {
-            var intTemp = (int)Math.Floor(temp);
-            var lookups = db.TempRHRange.ToList();
-            lookups = lookups.Where(x => x.Temp >= (temp - 2)).ToList();
-            foreach(var look in lookups)
+            double dTemp = convertToDouble(temp);
+
+            double dHum = 0;
+
+            var vpd = .8;
+
+            double minVPDd = convertToDouble(settings.minVPD);
+            double maxVPDd = convertToDouble(settings.maxVPD);
+
+            for (double i = 90; i > 30; i--)
             {
-                if (((int)look.Temp) <= intTemp)
-                    continue;
-                else
-                    return look.HighRH;
+                dHum = i;
+                vpd = 3.386 * (Math.Exp(17.863 - 9621 / ((dTemp - 4) + 460)) - (dHum / 100) * Math.Exp(17.863 - 9621 / (dTemp + 460)));
+                if (Math.Round(vpd,1) == maxVPDd )
+                    return convertToDecimal(dHum);
+
             }
             return 65.0M;
         }
 
-        private decimal GetLowRH(decimal temp)
+        private decimal GetHighRH(decimal temp)
         {
-            var intTemp = (int)Math.Floor(temp);
-            var lookups = db.TempRHRange.ToList();
-            lookups = lookups.Where(x => x.Temp >= (temp - 2)).ToList();
-            foreach (var look in lookups)
+            double dTemp = convertToDouble(temp);
+
+            double dHum = 0;
+
+            var vpd = .8;
+
+            double minVPDd = convertToDouble(settings.minVPD);
+            double maxVPDd = convertToDouble(settings.maxVPD);
+
+            for (double i = 90;i > 30; i--)
             {
-                if (((int)look.Temp) <= temp)
-                    continue;
-                else
-                    return look.LowRH;
+                dHum = i;
+                vpd = 3.386 * (Math.Exp(17.863 - 9621 / ((dTemp - 4) + 460)) - (dHum / 100) * Math.Exp(17.863 - 9621 / (dTemp + 460)));
+                if (Math.Round(vpd, 1) == minVPDd)
+                    return convertToDecimal(dHum);
+
             }
-            return 55.0M;
+
+            return 55M;
         }
 
+        private double convertToDouble(decimal dec)
+        {
+            var decStr = dec.ToString();
+            return double.Parse(decStr);
+        }
+
+        private decimal convertToDecimal (double dub)
+        {
+            var dubStr = dub.ToString();
+            return decimal.Parse(dubStr);
+        }
 
         private decimal GetNewTemp(decimal RH)
         {
@@ -431,8 +598,8 @@ namespace TentMonitorDesk2021
                 var timeNow = int.Parse(DateTime.Now.ToString("HH")) * 100;
                 var isNight = (timeNow > nightStart && timeNow < nightEnd);
                 tt.LightsOff = isNight;
-                tt.TargetHumid = isNight == true ? settings.optRHNight : settings.optRHDay;
-                tt.TargetTemp = isNight == true ? settings.optTempNight : settings.optTempDay;
+                tt.TargetHumid = settings.optRHDay;
+                tt.TargetTemp = settings.optTempDay;
                 try
                 {
                     if (tt.VPD > 0)
@@ -451,7 +618,11 @@ namespace TentMonitorDesk2021
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Reset();
+            var connStr = ConfigurationManager.ConnectionStrings["TentData2"].ConnectionString;
+            var dg = new clsDataGetter(connStr);
+            dg.RunCommand("DELETE FROM TENTLOG WHERE LOGID > 1");
+            dg.RunCommand("UPDATE TentLog SET LogDate = GetDate()");
+
         }
 
         public void Reset()
@@ -460,56 +631,138 @@ namespace TentMonitorDesk2021
             runSession();
         }
 
-        public void RaiseHeat(string source)
+        public bool TurnOffAC(string source)
         {
-            if (targetTemp > 0 && probeData.Temp < targetTemp)
-                return;
-            if (MasterDeviceList.GetState(AC1) == 0)
-            {
-                MasterDeviceList.SetState(AC1, 1, probeData);
-                probeData.ActionList.Add("Turned on AC in " + source);
-            }
-        }
-        public void LowerHeat(string source)
-        {
-            if (targetTemp > 0 && probeData.Temp > targetTemp)
-                return;
             if (MasterDeviceList.GetState(AC1) == 1)
             {
                 MasterDeviceList.SetState(AC1, 0, probeData);
                 probeData.ActionList.Add("Turned off AC in " + source);
+                return true;
             }
+            return false;
+        }
+        public bool TurnOnAC(string source)
+        {
+            if (MasterDeviceList.GetState(AC1) == 0)
+            {
+                MasterDeviceList.SetState(AC1, 1, probeData);
+                probeData.ActionList.Add("Turned on AC in " + source);
+                return true;
+            }
+            return false;
         }
 
-        public void RaiseRH(string source)
+        public bool RaiseRH(string source)
         {
+            var retVal = false;
             if (MasterDeviceList.GetState(Humidifier) == 0)
             {
                 MasterDeviceList.SetState(Humidifier, 1, probeData);
                 probeData.ActionList.Add("Turned on Humidifier in " + source);
+                retVal = true;
             }
 
             if (MasterDeviceList.GetState(Dehumid) == 1)
             {
                 MasterDeviceList.SetState(Dehumid, 0, probeData);
                 probeData.ActionList.Add("Turned off deHumidifier in " + source);
+                retVal = true;
             }
+            return retVal;
         }
-        public void LowerRH(string source)
+        public bool LowerRH(string source)
         {
+            var retVal = false;
 
             if (MasterDeviceList.GetState(Humidifier) == 1)
             {
                 MasterDeviceList.SetState(Humidifier, 0, probeData);
                 probeData.ActionList.Add("Turned off Humidifier in " + source);
+                retVal = true;
             }
 
             if (MasterDeviceList.GetState(Dehumid) == 0)
             {
                 MasterDeviceList.SetState(Dehumid, 1, probeData);
                 probeData.ActionList.Add("Turned on deHumidifier in " + source);
+                retVal = true;
+            }
+            if (retVal && probeData.Temp < (settings.optTempDay + 3))
+            {
+                TurnOffAC("Lower RH");
+            }
+            return retVal;
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            playSimpleSound();
+        }
+
+
+        private void playSimpleSound()
+        {
+            SoundPlayer simpleSound = new SoundPlayer(@"c:\TentMonitor\Alert.wav");
+            simpleSound.Play();
+        }
+
+        private void btnSetSettings_Click(object sender, EventArgs e)
+        {
+            List<SettingsGuy> settingsList = new List<SettingsGuy>();
+            foreach (Control c in panel3.Controls)
+            {
+                if (c is TextBox)
+                {
+                    if (string.IsNullOrEmpty(c.Text))
+                    {
+                        c.Text = "0";
+                    }
+                        
+                    settingsList.Add(new SettingsGuy(c.Name,c.Text));
+                }
+            }
+
+            var connStr = ConfigurationManager.ConnectionStrings["TentData2"].ConnectionString;
+            var dg = new clsDataGetter(connStr);
+
+            string UPDATEsql = "INSERT INTO  Settings (";
+            string INSERTsql = "VALUES (";
+
+            foreach(var tSetting in settingsList)
+            {
+                UPDATEsql += tSetting.columnName.Replace("TextBox","") + ",";
+                INSERTsql += tSetting.stringVal + ",";
+            }
+
+            UPDATEsql = UPDATEsql.Substring(0, UPDATEsql.Length - 1);
+            UPDATEsql += ")";
+
+            INSERTsql = INSERTsql.Substring(0, INSERTsql.Length - 1);
+            INSERTsql += ")";
+
+            dg.RunCommand("TRUNCATE TABLE Settings");
+
+            var sql = UPDATEsql + INSERTsql;
+
+            dg.RunCommand(sql);
+            settingsTableAdapter.Fill(this.tentConrolDataSet.Settings);
+            settings = db.Settings.FirstOrDefault();
+        }
+
+        public class SettingsGuy
+        {
+            public string columnName { get; set; }
+            public string stringVal { get; set; }
+            public SettingsGuy(string col, string txt)
+            {
+                columnName = col;
+                stringVal = txt;
             }
         }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

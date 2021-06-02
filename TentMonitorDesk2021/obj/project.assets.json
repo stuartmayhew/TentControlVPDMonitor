@@ -282,11 +282,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentMonitorDesk2021\\TentMonitorDesk2021.csproj",
+      "projectUniqueName": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentControlVPDMonitor\\TentMonitorDesk2021\\TentMonitorDesk2021.csproj",
       "projectName": "TentMonitorDesk2021",
-      "projectPath": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentMonitorDesk2021\\TentMonitorDesk2021.csproj",
+      "projectPath": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentControlVPDMonitor\\TentMonitorDesk2021\\TentMonitorDesk2021.csproj",
       "packagesPath": "C:\\Users\\Stuart\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentMonitorDesk2021\\obj\\",
+      "outputPath": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentControlVPDMonitor\\TentMonitorDesk2021\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

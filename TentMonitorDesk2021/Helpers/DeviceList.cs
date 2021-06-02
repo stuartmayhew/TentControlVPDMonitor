@@ -98,6 +98,7 @@ namespace TentMonitorDesk2021.Helpers
             var request = new RestRequest();
             request.AddJsonBody(json);
             var response = client.Post(request);
+            probeData.ActionList.Add("Turned " + device.alias + " " + (state == 1 ? "on" : "off"));
         }
 
     }

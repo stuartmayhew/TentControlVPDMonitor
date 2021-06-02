@@ -30,41 +30,7 @@ namespace TentMonitorDesk2021.Helpers
         {
             get
             {
-                var db = new TentData();
-                var settings = db.Settings.FirstOrDefault();
-                var nightStart = settings.nightStart;
-                var nightEnd = settings.nightEnd;
-
-                decimal tempFactor = settings.tempRangeFactor;
-                decimal RHFactor = settings.RHRangeFactor;
-                decimal optTemp;
-                decimal optRH;
-                var timeNow = int.Parse(DateTime.Now.ToString("HH")) * 100;
-                bool isNight = (timeNow >= nightStart && timeNow <= nightEnd);
-
-                    if (isNight)
-                        optTemp = settings.optTempNight;
-                    else
-                        optTemp = settings.optTempDay;
-
-                    if (isNight)
-                        optRH = settings.optRHNight;
-                    else
-                        optRH = settings.optRHDay;
-
-
-
-                if (Temp < optTemp - tempFactor)
-                    return true;
-                if (Temp > optTemp + tempFactor)
-                    return true;
-
-                if (Humidity < optRH - RHFactor)
-                    return true;
-                if (Humidity > optRH + RHFactor)
-                    return true;
-
-                return false;
+                return true;
             }
         }
 

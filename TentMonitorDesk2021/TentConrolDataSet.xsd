@@ -9,7 +9,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TentLogTableAdapter" GeneratorDataComponentClassName="TentLogTableAdapter" Name="TentLog" UserDataComponentName="TentLogTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="TentConrolConnectionString (Settings)" DbObjectName="TentConrol.dbo.TentLog" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="TentConrolConnectionString (Settings)" DbObjectName="TentConrol.dbo.TentLog" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="GetCurrent" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="GetCurrent" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="GetCurrent">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>SELECT        TOP (50) LogDate, VPD
@@ -25,11 +25,12 @@ ORDER BY LogDate DESC</CommandText>
               <Mapping SourceColumn="VPD" DataSetColumn="VPD" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="TentConrolConnectionString (Settings)" DbObjectName="TentConrol.dbo.TentLog" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+              <DbSource ConnectionRef="TentConrolConnectionString (Settings)" DbObjectName="TentConrol.dbo.TentLog" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="GetDaily" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="GetDaily" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="GetDaily">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        LogDate, VPD
+                    <CommandText>SELECT        CAST(LogDate AS date) AS LogDate, AVG(VPD) AS VPD
 FROM            TentLog
+GROUP BY CAST(LogDate AS date)
 ORDER BY LogDate DESC</CommandText>
                     <Parameters />
                   </DbCommand>
@@ -83,6 +84,132 @@ ORDER BY LogDate DESC</CommandText>
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SettingsTableAdapter" GeneratorDataComponentClassName="SettingsTableAdapter" Name="Settings" UserDataComponentName="SettingsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TentConrolConnectionString (Settings)" DbObjectName="TentConrol.dbo.Settings" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [Settings] WHERE (([pKey] = @Original_pKey) AND ([maxVPD] = @Original_maxVPD) AND ([minVPD] = @Original_minVPD) AND ([optTempDay] = @Original_optTempDay) AND ([optRHDay] = @Original_optRHDay) AND ([nightStart] = @Original_nightStart) AND ([nightEnd] = @Original_nightEnd) AND ([tempRangeFactor] = @Original_tempRangeFactor) AND ([RHRangeFactor] = @Original_RHRangeFactor) AND ([lightsLPD] = @Original_lightsLPD) AND ([TempCalFactor] = @Original_TempCalFactor) AND ([RHCalFactor] = @Original_RHCalFactor) AND ((@IsNull_maxNightRH = 1 AND [maxNightRH] IS NULL) OR ([maxNightRH] = @Original_maxNightRH)) AND ((@IsNull_maxNightTemp = 1 AND [maxNightTemp] IS NULL) OR ([maxNightTemp] = @Original_maxNightTemp)) AND ((@IsNull_alertTemp = 1 AND [alertTemp] IS NULL) OR ([alertTemp] = @Original_alertTemp)) AND ((@IsNull_alertRH = 1 AND [alertRH] IS NULL) OR ([alertRH] = @Original_alertRH)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_pKey" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="pKey" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_maxVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxVPD" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_minVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="minVPD" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_optTempDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optTempDay" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_optRHDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optRHDay" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_nightStart" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightStart" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_nightEnd" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightEnd" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_tempRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="tempRangeFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_RHRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHRangeFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_lightsLPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="lightsLPD" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_TempCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="TempCalFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_RHCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHCalFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_maxNightRH" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="maxNightRH" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_maxNightRH" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightRH" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_maxNightTemp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="maxNightTemp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_maxNightTemp" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightTemp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_alertTemp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="alertTemp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_alertTemp" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertTemp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_alertRH" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="alertRH" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_alertRH" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertRH" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [Settings] ([maxVPD], [minVPD], [optTempDay], [optRHDay], [nightStart], [nightEnd], [tempRangeFactor], [RHRangeFactor], [lightsLPD], [TempCalFactor], [RHCalFactor], [maxNightRH], [maxNightTemp], [alertTemp], [alertRH]) VALUES (@maxVPD, @minVPD, @optTempDay, @optRHDay, @nightStart, @nightEnd, @tempRangeFactor, @RHRangeFactor, @lightsLPD, @TempCalFactor, @RHCalFactor, @maxNightRH, @maxNightTemp, @alertTemp, @alertRH);
+SELECT TOP (1) pKey, maxVPD, minVPD, optTempDay, optRHDay, nightStart, nightEnd, tempRangeFactor, RHRangeFactor, lightsLPD, TempCalFactor, RHCalFactor, maxNightRH, maxNightTemp, alertTemp, alertRH FROM Settings WHERE (pKey = SCOPE_IDENTITY())</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@maxVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxVPD" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@minVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="minVPD" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@optTempDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optTempDay" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@optRHDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optRHDay" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@nightStart" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightStart" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@nightEnd" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightEnd" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@tempRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="tempRangeFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@RHRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHRangeFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@lightsLPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="lightsLPD" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@TempCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="TempCalFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@RHCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHCalFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@maxNightRH" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightRH" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@maxNightTemp" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightTemp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@alertTemp" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertTemp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@alertRH" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertRH" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        TOP (1) pKey, maxVPD, minVPD, optTempDay, optRHDay, nightStart, nightEnd, tempRangeFactor, RHRangeFactor, lightsLPD, TempCalFactor, RHCalFactor, maxNightRH, maxNightTemp, alertTemp, alertRH
+FROM            Settings</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [Settings] SET [maxVPD] = @maxVPD, [minVPD] = @minVPD, [optTempDay] = @optTempDay, [optRHDay] = @optRHDay, [nightStart] = @nightStart, [nightEnd] = @nightEnd, [tempRangeFactor] = @tempRangeFactor, [RHRangeFactor] = @RHRangeFactor, [lightsLPD] = @lightsLPD, [TempCalFactor] = @TempCalFactor, [RHCalFactor] = @RHCalFactor, [maxNightRH] = @maxNightRH, [maxNightTemp] = @maxNightTemp, [alertTemp] = @alertTemp, [alertRH] = @alertRH WHERE (([pKey] = @Original_pKey) AND ([maxVPD] = @Original_maxVPD) AND ([minVPD] = @Original_minVPD) AND ([optTempDay] = @Original_optTempDay) AND ([optRHDay] = @Original_optRHDay) AND ([nightStart] = @Original_nightStart) AND ([nightEnd] = @Original_nightEnd) AND ([tempRangeFactor] = @Original_tempRangeFactor) AND ([RHRangeFactor] = @Original_RHRangeFactor) AND ([lightsLPD] = @Original_lightsLPD) AND ([TempCalFactor] = @Original_TempCalFactor) AND ([RHCalFactor] = @Original_RHCalFactor) AND ((@IsNull_maxNightRH = 1 AND [maxNightRH] IS NULL) OR ([maxNightRH] = @Original_maxNightRH)) AND ((@IsNull_maxNightTemp = 1 AND [maxNightTemp] IS NULL) OR ([maxNightTemp] = @Original_maxNightTemp)) AND ((@IsNull_alertTemp = 1 AND [alertTemp] IS NULL) OR ([alertTemp] = @Original_alertTemp)) AND ((@IsNull_alertRH = 1 AND [alertRH] IS NULL) OR ([alertRH] = @Original_alertRH)));
+SELECT TOP (1) pKey, maxVPD, minVPD, optTempDay, optRHDay, nightStart, nightEnd, tempRangeFactor, RHRangeFactor, lightsLPD, TempCalFactor, RHCalFactor, maxNightRH, maxNightTemp, alertTemp, alertRH FROM Settings WHERE (pKey = @pKey)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@maxVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxVPD" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@minVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="minVPD" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@optTempDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optTempDay" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@optRHDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optRHDay" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@nightStart" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightStart" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@nightEnd" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightEnd" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@tempRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="tempRangeFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@RHRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHRangeFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@lightsLPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="lightsLPD" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@TempCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="TempCalFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@RHCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHCalFactor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@maxNightRH" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightRH" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@maxNightTemp" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightTemp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@alertTemp" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertTemp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@alertRH" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertRH" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_pKey" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="pKey" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_maxVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxVPD" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_minVPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="minVPD" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_optTempDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optTempDay" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_optRHDay" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="optRHDay" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_nightStart" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightStart" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_nightEnd" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="nightEnd" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_tempRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="tempRangeFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_RHRangeFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHRangeFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_lightsLPD" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="lightsLPD" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_TempCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="TempCalFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_RHCalFactor" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="RHCalFactor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_maxNightRH" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="maxNightRH" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_maxNightRH" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightRH" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_maxNightTemp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="maxNightTemp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_maxNightTemp" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="maxNightTemp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_alertTemp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="alertTemp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_alertTemp" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertTemp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_alertRH" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="alertRH" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_alertRH" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="alertRH" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="pKey" ColumnName="pKey" DataSourceName="TentConrol.dbo.Settings" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@pKey" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="pKey" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="pKey" DataSetColumn="pKey" />
+              <Mapping SourceColumn="maxVPD" DataSetColumn="maxVPD" />
+              <Mapping SourceColumn="minVPD" DataSetColumn="minVPD" />
+              <Mapping SourceColumn="optTempDay" DataSetColumn="optTempDay" />
+              <Mapping SourceColumn="optRHDay" DataSetColumn="optRHDay" />
+              <Mapping SourceColumn="nightStart" DataSetColumn="nightStart" />
+              <Mapping SourceColumn="nightEnd" DataSetColumn="nightEnd" />
+              <Mapping SourceColumn="tempRangeFactor" DataSetColumn="tempRangeFactor" />
+              <Mapping SourceColumn="RHRangeFactor" DataSetColumn="RHRangeFactor" />
+              <Mapping SourceColumn="lightsLPD" DataSetColumn="lightsLPD" />
+              <Mapping SourceColumn="TempCalFactor" DataSetColumn="TempCalFactor" />
+              <Mapping SourceColumn="RHCalFactor" DataSetColumn="RHCalFactor" />
+              <Mapping SourceColumn="maxNightRH" DataSetColumn="maxNightRH" />
+              <Mapping SourceColumn="maxNightTemp" DataSetColumn="maxNightTemp" />
+              <Mapping SourceColumn="alertTemp" DataSetColumn="alertTemp" />
+              <Mapping SourceColumn="alertRH" DataSetColumn="alertRH" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -132,7 +259,33 @@ ORDER BY LogDate DESC</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="Settings" msprop:Generator_TableClassName="SettingsDataTable" msprop:Generator_TableVarName="tableSettings" msprop:Generator_TablePropName="Settings" msprop:Generator_RowDeletingName="SettingsRowDeleting" msprop:Generator_RowChangingName="SettingsRowChanging" msprop:Generator_RowEvHandlerName="SettingsRowChangeEventHandler" msprop:Generator_RowDeletedName="SettingsRowDeleted" msprop:Generator_UserTableName="Settings" msprop:Generator_RowChangedName="SettingsRowChanged" msprop:Generator_RowEvArgName="SettingsRowChangeEvent" msprop:Generator_RowClassName="SettingsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pKey" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnpKey" msprop:Generator_ColumnPropNameInRow="pKey" msprop:Generator_ColumnPropNameInTable="pKeyColumn" msprop:Generator_UserColumnName="pKey" type="xs:int" />
+              <xs:element name="maxVPD" msprop:Generator_ColumnVarNameInTable="columnmaxVPD" msprop:Generator_ColumnPropNameInRow="maxVPD" msprop:Generator_ColumnPropNameInTable="maxVPDColumn" msprop:Generator_UserColumnName="maxVPD" type="xs:decimal" />
+              <xs:element name="minVPD" msprop:Generator_ColumnVarNameInTable="columnminVPD" msprop:Generator_ColumnPropNameInRow="minVPD" msprop:Generator_ColumnPropNameInTable="minVPDColumn" msprop:Generator_UserColumnName="minVPD" type="xs:decimal" />
+              <xs:element name="optTempDay" msprop:Generator_ColumnVarNameInTable="columnoptTempDay" msprop:Generator_ColumnPropNameInRow="optTempDay" msprop:Generator_ColumnPropNameInTable="optTempDayColumn" msprop:Generator_UserColumnName="optTempDay" type="xs:decimal" />
+              <xs:element name="optRHDay" msprop:Generator_ColumnVarNameInTable="columnoptRHDay" msprop:Generator_ColumnPropNameInRow="optRHDay" msprop:Generator_ColumnPropNameInTable="optRHDayColumn" msprop:Generator_UserColumnName="optRHDay" type="xs:decimal" />
+              <xs:element name="nightStart" msprop:Generator_ColumnVarNameInTable="columnnightStart" msprop:Generator_ColumnPropNameInRow="nightStart" msprop:Generator_ColumnPropNameInTable="nightStartColumn" msprop:Generator_UserColumnName="nightStart" type="xs:decimal" />
+              <xs:element name="nightEnd" msprop:Generator_ColumnVarNameInTable="columnnightEnd" msprop:Generator_ColumnPropNameInRow="nightEnd" msprop:Generator_ColumnPropNameInTable="nightEndColumn" msprop:Generator_UserColumnName="nightEnd" type="xs:decimal" />
+              <xs:element name="tempRangeFactor" msprop:Generator_ColumnVarNameInTable="columntempRangeFactor" msprop:Generator_ColumnPropNameInRow="tempRangeFactor" msprop:Generator_ColumnPropNameInTable="tempRangeFactorColumn" msprop:Generator_UserColumnName="tempRangeFactor" type="xs:decimal" />
+              <xs:element name="RHRangeFactor" msprop:Generator_ColumnVarNameInTable="columnRHRangeFactor" msprop:Generator_ColumnPropNameInRow="RHRangeFactor" msprop:Generator_ColumnPropNameInTable="RHRangeFactorColumn" msprop:Generator_UserColumnName="RHRangeFactor" type="xs:decimal" />
+              <xs:element name="lightsLPD" msprop:Generator_ColumnVarNameInTable="columnlightsLPD" msprop:Generator_ColumnPropNameInRow="lightsLPD" msprop:Generator_ColumnPropNameInTable="lightsLPDColumn" msprop:Generator_UserColumnName="lightsLPD" type="xs:decimal" />
+              <xs:element name="TempCalFactor" msprop:Generator_ColumnVarNameInTable="columnTempCalFactor" msprop:Generator_ColumnPropNameInRow="TempCalFactor" msprop:Generator_ColumnPropNameInTable="TempCalFactorColumn" msprop:Generator_UserColumnName="TempCalFactor" type="xs:decimal" />
+              <xs:element name="RHCalFactor" msprop:Generator_ColumnVarNameInTable="columnRHCalFactor" msprop:Generator_ColumnPropNameInRow="RHCalFactor" msprop:Generator_ColumnPropNameInTable="RHCalFactorColumn" msprop:Generator_UserColumnName="RHCalFactor" type="xs:decimal" />
+              <xs:element name="maxNightRH" msprop:Generator_ColumnVarNameInTable="columnmaxNightRH" msprop:Generator_ColumnPropNameInRow="maxNightRH" msprop:Generator_ColumnPropNameInTable="maxNightRHColumn" msprop:Generator_UserColumnName="maxNightRH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="maxNightTemp" msprop:Generator_ColumnVarNameInTable="columnmaxNightTemp" msprop:Generator_ColumnPropNameInRow="maxNightTemp" msprop:Generator_ColumnPropNameInTable="maxNightTempColumn" msprop:Generator_UserColumnName="maxNightTemp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="alertTemp" msprop:Generator_ColumnVarNameInTable="columnalertTemp" msprop:Generator_ColumnPropNameInRow="alertTemp" msprop:Generator_ColumnPropNameInTable="alertTempColumn" msprop:Generator_UserColumnName="alertTemp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="alertRH" msprop:Generator_ColumnVarNameInTable="columnalertRH" msprop:Generator_ColumnPropNameInRow="alertRH" msprop:Generator_ColumnPropNameInTable="alertRHColumn" msprop:Generator_UserColumnName="alertRH" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Settings" />
+      <xs:field xpath="mstns:pKey" />
+    </xs:unique>
   </xs:element>
 </xs:schema>

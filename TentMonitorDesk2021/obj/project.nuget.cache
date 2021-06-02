@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ELTHmcfv/h9YDvM2x051okwx/pAi8IQIMUioKYGa9SV5oIPodvAen1XDnTC+k/vzOUFNAp2ohEOEkUqzl0pKhQ==",
+  "dgSpecHash": "900Qz4QR1BiJYz5IG83reYPRto8wud46ganKkNYZONGXr8Y+drdhyTmzqsbmCDUC0Mkv4gNvxGsLNMBwn8t7rA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentMonitorDesk2021\\TentMonitorDesk2021.csproj",
+  "projectFilePath": "C:\\Users\\Stuart\\source\\repos\\TentMonitorDesk2021\\TentControlVPDMonitor\\TentMonitorDesk2021\\TentMonitorDesk2021.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Stuart\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Stuart\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",

@@ -126,6 +126,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Alert.wav" />
     <Content Include="script.js" />
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,8 @@ namespace TentMonitorDesk2021 {
         
         private VPDLookupTableDataTable tableVPDLookupTable;
         
+        private SettingsDataTable tableSettings;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -61,6 +63,9 @@ namespace TentMonitorDesk2021 {
                 }
                 if ((ds.Tables["VPDLookupTable"] != null)) {
                     base.Tables.Add(new VPDLookupTableDataTable(ds.Tables["VPDLookupTable"]));
+                }
+                if ((ds.Tables["Settings"] != null)) {
+                    base.Tables.Add(new SettingsDataTable(ds.Tables["Settings"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -97,6 +102,16 @@ namespace TentMonitorDesk2021 {
         public VPDLookupTableDataTable VPDLookupTable {
             get {
                 return this.tableVPDLookupTable;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public SettingsDataTable Settings {
+            get {
+                return this.tableSettings;
             }
         }
         
@@ -173,6 +188,9 @@ namespace TentMonitorDesk2021 {
                 if ((ds.Tables["VPDLookupTable"] != null)) {
                     base.Tables.Add(new VPDLookupTableDataTable(ds.Tables["VPDLookupTable"]));
                 }
+                if ((ds.Tables["Settings"] != null)) {
+                    base.Tables.Add(new SettingsDataTable(ds.Tables["Settings"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -218,6 +236,12 @@ namespace TentMonitorDesk2021 {
                     this.tableVPDLookupTable.InitVars();
                 }
             }
+            this.tableSettings = ((SettingsDataTable)(base.Tables["Settings"]));
+            if ((initTable == true)) {
+                if ((this.tableSettings != null)) {
+                    this.tableSettings.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -232,6 +256,8 @@ namespace TentMonitorDesk2021 {
             base.Tables.Add(this.tableTentLog);
             this.tableVPDLookupTable = new VPDLookupTableDataTable();
             base.Tables.Add(this.tableVPDLookupTable);
+            this.tableSettings = new SettingsDataTable();
+            base.Tables.Add(this.tableSettings);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -243,6 +269,12 @@ namespace TentMonitorDesk2021 {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeVPDLookupTable() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeSettings() {
             return false;
         }
         
@@ -306,6 +338,9 @@ namespace TentMonitorDesk2021 {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void VPDLookupTableRowChangeEventHandler(object sender, VPDLookupTableRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void SettingsRowChangeEventHandler(object sender, SettingsRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1207,6 +1242,489 @@ namespace TentMonitorDesk2021 {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class SettingsDataTable : global::System.Data.TypedTableBase<SettingsRow> {
+            
+            private global::System.Data.DataColumn columnpKey;
+            
+            private global::System.Data.DataColumn columnmaxVPD;
+            
+            private global::System.Data.DataColumn columnminVPD;
+            
+            private global::System.Data.DataColumn columnoptTempDay;
+            
+            private global::System.Data.DataColumn columnoptRHDay;
+            
+            private global::System.Data.DataColumn columnnightStart;
+            
+            private global::System.Data.DataColumn columnnightEnd;
+            
+            private global::System.Data.DataColumn columntempRangeFactor;
+            
+            private global::System.Data.DataColumn columnRHRangeFactor;
+            
+            private global::System.Data.DataColumn columnlightsLPD;
+            
+            private global::System.Data.DataColumn columnTempCalFactor;
+            
+            private global::System.Data.DataColumn columnRHCalFactor;
+            
+            private global::System.Data.DataColumn columnmaxNightRH;
+            
+            private global::System.Data.DataColumn columnmaxNightTemp;
+            
+            private global::System.Data.DataColumn columnalertTemp;
+            
+            private global::System.Data.DataColumn columnalertRH;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SettingsDataTable() {
+                this.TableName = "Settings";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal SettingsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected SettingsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn pKeyColumn {
+                get {
+                    return this.columnpKey;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn maxVPDColumn {
+                get {
+                    return this.columnmaxVPD;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn minVPDColumn {
+                get {
+                    return this.columnminVPD;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn optTempDayColumn {
+                get {
+                    return this.columnoptTempDay;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn optRHDayColumn {
+                get {
+                    return this.columnoptRHDay;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn nightStartColumn {
+                get {
+                    return this.columnnightStart;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn nightEndColumn {
+                get {
+                    return this.columnnightEnd;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn tempRangeFactorColumn {
+                get {
+                    return this.columntempRangeFactor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RHRangeFactorColumn {
+                get {
+                    return this.columnRHRangeFactor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn lightsLPDColumn {
+                get {
+                    return this.columnlightsLPD;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TempCalFactorColumn {
+                get {
+                    return this.columnTempCalFactor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RHCalFactorColumn {
+                get {
+                    return this.columnRHCalFactor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn maxNightRHColumn {
+                get {
+                    return this.columnmaxNightRH;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn maxNightTempColumn {
+                get {
+                    return this.columnmaxNightTemp;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn alertTempColumn {
+                get {
+                    return this.columnalertTemp;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn alertRHColumn {
+                get {
+                    return this.columnalertRH;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SettingsRow this[int index] {
+                get {
+                    return ((SettingsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event SettingsRowChangeEventHandler SettingsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event SettingsRowChangeEventHandler SettingsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event SettingsRowChangeEventHandler SettingsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event SettingsRowChangeEventHandler SettingsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddSettingsRow(SettingsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SettingsRow AddSettingsRow(decimal maxVPD, decimal minVPD, decimal optTempDay, decimal optRHDay, decimal nightStart, decimal nightEnd, decimal tempRangeFactor, decimal RHRangeFactor, decimal lightsLPD, decimal TempCalFactor, decimal RHCalFactor, decimal maxNightRH, decimal maxNightTemp, decimal alertTemp, decimal alertRH) {
+                SettingsRow rowSettingsRow = ((SettingsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        maxVPD,
+                        minVPD,
+                        optTempDay,
+                        optRHDay,
+                        nightStart,
+                        nightEnd,
+                        tempRangeFactor,
+                        RHRangeFactor,
+                        lightsLPD,
+                        TempCalFactor,
+                        RHCalFactor,
+                        maxNightRH,
+                        maxNightTemp,
+                        alertTemp,
+                        alertRH};
+                rowSettingsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSettingsRow);
+                return rowSettingsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SettingsRow FindBypKey(int pKey) {
+                return ((SettingsRow)(this.Rows.Find(new object[] {
+                            pKey})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                SettingsDataTable cln = ((SettingsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new SettingsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnpKey = base.Columns["pKey"];
+                this.columnmaxVPD = base.Columns["maxVPD"];
+                this.columnminVPD = base.Columns["minVPD"];
+                this.columnoptTempDay = base.Columns["optTempDay"];
+                this.columnoptRHDay = base.Columns["optRHDay"];
+                this.columnnightStart = base.Columns["nightStart"];
+                this.columnnightEnd = base.Columns["nightEnd"];
+                this.columntempRangeFactor = base.Columns["tempRangeFactor"];
+                this.columnRHRangeFactor = base.Columns["RHRangeFactor"];
+                this.columnlightsLPD = base.Columns["lightsLPD"];
+                this.columnTempCalFactor = base.Columns["TempCalFactor"];
+                this.columnRHCalFactor = base.Columns["RHCalFactor"];
+                this.columnmaxNightRH = base.Columns["maxNightRH"];
+                this.columnmaxNightTemp = base.Columns["maxNightTemp"];
+                this.columnalertTemp = base.Columns["alertTemp"];
+                this.columnalertRH = base.Columns["alertRH"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnpKey = new global::System.Data.DataColumn("pKey", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpKey);
+                this.columnmaxVPD = new global::System.Data.DataColumn("maxVPD", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmaxVPD);
+                this.columnminVPD = new global::System.Data.DataColumn("minVPD", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnminVPD);
+                this.columnoptTempDay = new global::System.Data.DataColumn("optTempDay", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnoptTempDay);
+                this.columnoptRHDay = new global::System.Data.DataColumn("optRHDay", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnoptRHDay);
+                this.columnnightStart = new global::System.Data.DataColumn("nightStart", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnightStart);
+                this.columnnightEnd = new global::System.Data.DataColumn("nightEnd", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnightEnd);
+                this.columntempRangeFactor = new global::System.Data.DataColumn("tempRangeFactor", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntempRangeFactor);
+                this.columnRHRangeFactor = new global::System.Data.DataColumn("RHRangeFactor", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRHRangeFactor);
+                this.columnlightsLPD = new global::System.Data.DataColumn("lightsLPD", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlightsLPD);
+                this.columnTempCalFactor = new global::System.Data.DataColumn("TempCalFactor", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTempCalFactor);
+                this.columnRHCalFactor = new global::System.Data.DataColumn("RHCalFactor", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRHCalFactor);
+                this.columnmaxNightRH = new global::System.Data.DataColumn("maxNightRH", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmaxNightRH);
+                this.columnmaxNightTemp = new global::System.Data.DataColumn("maxNightTemp", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmaxNightTemp);
+                this.columnalertTemp = new global::System.Data.DataColumn("alertTemp", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnalertTemp);
+                this.columnalertRH = new global::System.Data.DataColumn("alertRH", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnalertRH);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnpKey}, true));
+                this.columnpKey.AutoIncrement = true;
+                this.columnpKey.AutoIncrementSeed = -1;
+                this.columnpKey.AutoIncrementStep = -1;
+                this.columnpKey.AllowDBNull = false;
+                this.columnpKey.ReadOnly = true;
+                this.columnpKey.Unique = true;
+                this.columnmaxVPD.AllowDBNull = false;
+                this.columnminVPD.AllowDBNull = false;
+                this.columnoptTempDay.AllowDBNull = false;
+                this.columnoptRHDay.AllowDBNull = false;
+                this.columnnightStart.AllowDBNull = false;
+                this.columnnightEnd.AllowDBNull = false;
+                this.columntempRangeFactor.AllowDBNull = false;
+                this.columnRHRangeFactor.AllowDBNull = false;
+                this.columnlightsLPD.AllowDBNull = false;
+                this.columnTempCalFactor.AllowDBNull = false;
+                this.columnRHCalFactor.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SettingsRow NewSettingsRow() {
+                return ((SettingsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new SettingsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(SettingsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.SettingsRowChanged != null)) {
+                    this.SettingsRowChanged(this, new SettingsRowChangeEvent(((SettingsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.SettingsRowChanging != null)) {
+                    this.SettingsRowChanging(this, new SettingsRowChangeEvent(((SettingsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.SettingsRowDeleted != null)) {
+                    this.SettingsRowDeleted(this, new SettingsRowChangeEvent(((SettingsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.SettingsRowDeleting != null)) {
+                    this.SettingsRowDeleting(this, new SettingsRowChangeEvent(((SettingsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveSettingsRow(SettingsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                TentConrolDataSet ds = new TentConrolDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "SettingsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class TentLogRow : global::System.Data.DataRow {
@@ -2049,6 +2567,265 @@ namespace TentMonitorDesk2021 {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class SettingsRow : global::System.Data.DataRow {
+            
+            private SettingsDataTable tableSettings;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal SettingsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableSettings = ((SettingsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int pKey {
+                get {
+                    return ((int)(this[this.tableSettings.pKeyColumn]));
+                }
+                set {
+                    this[this.tableSettings.pKeyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal maxVPD {
+                get {
+                    return ((decimal)(this[this.tableSettings.maxVPDColumn]));
+                }
+                set {
+                    this[this.tableSettings.maxVPDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal minVPD {
+                get {
+                    return ((decimal)(this[this.tableSettings.minVPDColumn]));
+                }
+                set {
+                    this[this.tableSettings.minVPDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal optTempDay {
+                get {
+                    return ((decimal)(this[this.tableSettings.optTempDayColumn]));
+                }
+                set {
+                    this[this.tableSettings.optTempDayColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal optRHDay {
+                get {
+                    return ((decimal)(this[this.tableSettings.optRHDayColumn]));
+                }
+                set {
+                    this[this.tableSettings.optRHDayColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal nightStart {
+                get {
+                    return ((decimal)(this[this.tableSettings.nightStartColumn]));
+                }
+                set {
+                    this[this.tableSettings.nightStartColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal nightEnd {
+                get {
+                    return ((decimal)(this[this.tableSettings.nightEndColumn]));
+                }
+                set {
+                    this[this.tableSettings.nightEndColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal tempRangeFactor {
+                get {
+                    return ((decimal)(this[this.tableSettings.tempRangeFactorColumn]));
+                }
+                set {
+                    this[this.tableSettings.tempRangeFactorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal RHRangeFactor {
+                get {
+                    return ((decimal)(this[this.tableSettings.RHRangeFactorColumn]));
+                }
+                set {
+                    this[this.tableSettings.RHRangeFactorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal lightsLPD {
+                get {
+                    return ((decimal)(this[this.tableSettings.lightsLPDColumn]));
+                }
+                set {
+                    this[this.tableSettings.lightsLPDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal TempCalFactor {
+                get {
+                    return ((decimal)(this[this.tableSettings.TempCalFactorColumn]));
+                }
+                set {
+                    this[this.tableSettings.TempCalFactorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal RHCalFactor {
+                get {
+                    return ((decimal)(this[this.tableSettings.RHCalFactorColumn]));
+                }
+                set {
+                    this[this.tableSettings.RHCalFactorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal maxNightRH {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSettings.maxNightRHColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'maxNightRH\' in table \'Settings\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSettings.maxNightRHColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal maxNightTemp {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSettings.maxNightTempColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'maxNightTemp\' in table \'Settings\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSettings.maxNightTempColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal alertTemp {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSettings.alertTempColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'alertTemp\' in table \'Settings\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSettings.alertTempColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal alertRH {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSettings.alertRHColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'alertRH\' in table \'Settings\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSettings.alertRHColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsmaxNightRHNull() {
+                return this.IsNull(this.tableSettings.maxNightRHColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetmaxNightRHNull() {
+                this[this.tableSettings.maxNightRHColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsmaxNightTempNull() {
+                return this.IsNull(this.tableSettings.maxNightTempColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetmaxNightTempNull() {
+                this[this.tableSettings.maxNightTempColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsalertTempNull() {
+                return this.IsNull(this.tableSettings.alertTempColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetalertTempNull() {
+                this[this.tableSettings.alertTempColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsalertRHNull() {
+                return this.IsNull(this.tableSettings.alertRHColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetalertRHNull() {
+                this[this.tableSettings.alertRHColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -2102,6 +2879,40 @@ namespace TentMonitorDesk2021 {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public VPDLookupTableRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class SettingsRowChangeEvent : global::System.EventArgs {
+            
+            private SettingsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SettingsRowChangeEvent(SettingsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SettingsRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -2264,7 +3075,8 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        LogDate, VPD\r\nFROM            TentLog\r\nORDER BY LogDate DESC";
+            this._commandCollection[1].CommandText = "SELECT        CAST(LogDate AS date) AS LogDate, AVG(VPD) AS VPD\r\nFROM            " +
+                "TentLog\r\nGROUP BY CAST(LogDate AS date)\r\nORDER BY LogDate DESC";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2272,7 +3084,7 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TentConrolDataSet.TentLogDataTable dataTable) {
+        public virtual int GetCurrent(TentConrolDataSet.TentLogDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2296,7 +3108,7 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBy(TentConrolDataSet.TentLogDataTable dataTable) {
+        public virtual int GetDaily(TentConrolDataSet.TentLogDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2538,6 +3350,631 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class SettingsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public SettingsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Settings";
+            tableMapping.ColumnMappings.Add("pKey", "pKey");
+            tableMapping.ColumnMappings.Add("maxVPD", "maxVPD");
+            tableMapping.ColumnMappings.Add("minVPD", "minVPD");
+            tableMapping.ColumnMappings.Add("optTempDay", "optTempDay");
+            tableMapping.ColumnMappings.Add("optRHDay", "optRHDay");
+            tableMapping.ColumnMappings.Add("nightStart", "nightStart");
+            tableMapping.ColumnMappings.Add("nightEnd", "nightEnd");
+            tableMapping.ColumnMappings.Add("tempRangeFactor", "tempRangeFactor");
+            tableMapping.ColumnMappings.Add("RHRangeFactor", "RHRangeFactor");
+            tableMapping.ColumnMappings.Add("lightsLPD", "lightsLPD");
+            tableMapping.ColumnMappings.Add("TempCalFactor", "TempCalFactor");
+            tableMapping.ColumnMappings.Add("RHCalFactor", "RHCalFactor");
+            tableMapping.ColumnMappings.Add("maxNightRH", "maxNightRH");
+            tableMapping.ColumnMappings.Add("maxNightTemp", "maxNightTemp");
+            tableMapping.ColumnMappings.Add("alertTemp", "alertTemp");
+            tableMapping.ColumnMappings.Add("alertRH", "alertRH");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Settings] WHERE (([pKey] = @Original_pKey) AND ([maxVPD] = @Original_maxVPD) AND ([minVPD] = @Original_minVPD) AND ([optTempDay] = @Original_optTempDay) AND ([optRHDay] = @Original_optRHDay) AND ([nightStart] = @Original_nightStart) AND ([nightEnd] = @Original_nightEnd) AND ([tempRangeFactor] = @Original_tempRangeFactor) AND ([RHRangeFactor] = @Original_RHRangeFactor) AND ([lightsLPD] = @Original_lightsLPD) AND ([TempCalFactor] = @Original_TempCalFactor) AND ([RHCalFactor] = @Original_RHCalFactor) AND ((@IsNull_maxNightRH = 1 AND [maxNightRH] IS NULL) OR ([maxNightRH] = @Original_maxNightRH)) AND ((@IsNull_maxNightTemp = 1 AND [maxNightTemp] IS NULL) OR ([maxNightTemp] = @Original_maxNightTemp)) AND ((@IsNull_alertTemp = 1 AND [alertTemp] IS NULL) OR ([alertTemp] = @Original_alertTemp)) AND ((@IsNull_alertRH = 1 AND [alertRH] IS NULL) OR ([alertRH] = @Original_alertRH)))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_pKey", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pKey", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_maxVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxVPD", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_minVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "minVPD", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_optTempDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optTempDay", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_optRHDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optRHDay", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_nightStart", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightStart", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_nightEnd", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightEnd", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_tempRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "tempRangeFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RHRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHRangeFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_lightsLPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "lightsLPD", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TempCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "TempCalFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RHCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHCalFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_maxNightRH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "maxNightRH", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_maxNightRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightRH", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_maxNightTemp", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "maxNightTemp", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_maxNightTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightTemp", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_alertTemp", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "alertTemp", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_alertTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertTemp", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_alertRH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "alertRH", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_alertRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertRH", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Settings] ([maxVPD], [minVPD], [optTempDay], [optRHDay], [nightStart], [nightEnd], [tempRangeFactor], [RHRangeFactor], [lightsLPD], [TempCalFactor], [RHCalFactor], [maxNightRH], [maxNightTemp], [alertTemp], [alertRH]) VALUES (@maxVPD, @minVPD, @optTempDay, @optRHDay, @nightStart, @nightEnd, @tempRangeFactor, @RHRangeFactor, @lightsLPD, @TempCalFactor, @RHCalFactor, @maxNightRH, @maxNightTemp, @alertTemp, @alertRH);
+SELECT TOP (1) pKey, maxVPD, minVPD, optTempDay, optRHDay, nightStart, nightEnd, tempRangeFactor, RHRangeFactor, lightsLPD, TempCalFactor, RHCalFactor, maxNightRH, maxNightTemp, alertTemp, alertRH FROM Settings WHERE (pKey = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@maxVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxVPD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@minVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "minVPD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@optTempDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optTempDay", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@optRHDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optRHDay", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nightStart", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightStart", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nightEnd", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tempRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "tempRangeFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RHRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHRangeFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lightsLPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "lightsLPD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TempCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "TempCalFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RHCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHCalFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@maxNightRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightRH", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@maxNightTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightTemp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@alertTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertTemp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@alertRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertRH", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Settings] SET [maxVPD] = @maxVPD, [minVPD] = @minVPD, [optTempDay] = @opt" +
+                "TempDay, [optRHDay] = @optRHDay, [nightStart] = @nightStart, [nightEnd] = @night" +
+                "End, [tempRangeFactor] = @tempRangeFactor, [RHRangeFactor] = @RHRangeFactor, [li" +
+                "ghtsLPD] = @lightsLPD, [TempCalFactor] = @TempCalFactor, [RHCalFactor] = @RHCalF" +
+                "actor, [maxNightRH] = @maxNightRH, [maxNightTemp] = @maxNightTemp, [alertTemp] =" +
+                " @alertTemp, [alertRH] = @alertRH WHERE (([pKey] = @Original_pKey) AND ([maxVPD]" +
+                " = @Original_maxVPD) AND ([minVPD] = @Original_minVPD) AND ([optTempDay] = @Orig" +
+                "inal_optTempDay) AND ([optRHDay] = @Original_optRHDay) AND ([nightStart] = @Orig" +
+                "inal_nightStart) AND ([nightEnd] = @Original_nightEnd) AND ([tempRangeFactor] = " +
+                "@Original_tempRangeFactor) AND ([RHRangeFactor] = @Original_RHRangeFactor) AND (" +
+                "[lightsLPD] = @Original_lightsLPD) AND ([TempCalFactor] = @Original_TempCalFacto" +
+                "r) AND ([RHCalFactor] = @Original_RHCalFactor) AND ((@IsNull_maxNightRH = 1 AND " +
+                "[maxNightRH] IS NULL) OR ([maxNightRH] = @Original_maxNightRH)) AND ((@IsNull_ma" +
+                "xNightTemp = 1 AND [maxNightTemp] IS NULL) OR ([maxNightTemp] = @Original_maxNig" +
+                "htTemp)) AND ((@IsNull_alertTemp = 1 AND [alertTemp] IS NULL) OR ([alertTemp] = " +
+                "@Original_alertTemp)) AND ((@IsNull_alertRH = 1 AND [alertRH] IS NULL) OR ([aler" +
+                "tRH] = @Original_alertRH)));\r\nSELECT TOP (1) pKey, maxVPD, minVPD, optTempDay, o" +
+                "ptRHDay, nightStart, nightEnd, tempRangeFactor, RHRangeFactor, lightsLPD, TempCa" +
+                "lFactor, RHCalFactor, maxNightRH, maxNightTemp, alertTemp, alertRH FROM Settings" +
+                " WHERE (pKey = @pKey)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@maxVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxVPD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@minVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "minVPD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@optTempDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optTempDay", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@optRHDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optRHDay", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nightStart", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightStart", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@nightEnd", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tempRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "tempRangeFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RHRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHRangeFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lightsLPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "lightsLPD", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TempCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "TempCalFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RHCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHCalFactor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@maxNightRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightRH", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@maxNightTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightTemp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@alertTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertTemp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@alertRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertRH", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_pKey", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "pKey", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_maxVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxVPD", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_minVPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "minVPD", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_optTempDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optTempDay", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_optRHDay", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "optRHDay", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_nightStart", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightStart", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_nightEnd", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "nightEnd", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_tempRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "tempRangeFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RHRangeFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHRangeFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_lightsLPD", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "lightsLPD", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TempCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "TempCalFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RHCalFactor", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "RHCalFactor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_maxNightRH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "maxNightRH", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_maxNightRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightRH", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_maxNightTemp", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "maxNightTemp", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_maxNightTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "maxNightTemp", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_alertTemp", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "alertTemp", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_alertTemp", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertTemp", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_alertRH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "alertRH", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_alertRH", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "alertRH", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@pKey", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "pKey", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::TentMonitorDesk2021.Properties.Settings.Default.TentConrolConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT        TOP (1) pKey, maxVPD, minVPD, optTempDay, optRHDay, nightStart, nig" +
+                "htEnd, tempRangeFactor, RHRangeFactor, lightsLPD, TempCalFactor, RHCalFactor, ma" +
+                "xNightRH, maxNightTemp, alertTemp, alertRH\r\nFROM            Settings";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(TentConrolDataSet.SettingsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual TentConrolDataSet.SettingsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            TentConrolDataSet.SettingsDataTable dataTable = new TentConrolDataSet.SettingsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(TentConrolDataSet.SettingsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(TentConrolDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "Settings");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(
+                    int Original_pKey, 
+                    decimal Original_maxVPD, 
+                    decimal Original_minVPD, 
+                    decimal Original_optTempDay, 
+                    decimal Original_optRHDay, 
+                    decimal Original_nightStart, 
+                    decimal Original_nightEnd, 
+                    decimal Original_tempRangeFactor, 
+                    decimal Original_RHRangeFactor, 
+                    decimal Original_lightsLPD, 
+                    decimal Original_TempCalFactor, 
+                    decimal Original_RHCalFactor, 
+                    global::System.Nullable<decimal> Original_maxNightRH, 
+                    global::System.Nullable<decimal> Original_maxNightTemp, 
+                    global::System.Nullable<decimal> Original_alertTemp, 
+                    global::System.Nullable<decimal> Original_alertRH) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_pKey));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((decimal)(Original_maxVPD));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((decimal)(Original_minVPD));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((decimal)(Original_optTempDay));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_optRHDay));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_nightStart));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_nightEnd));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((decimal)(Original_tempRangeFactor));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_RHRangeFactor));
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((decimal)(Original_lightsLPD));
+            this.Adapter.DeleteCommand.Parameters[10].Value = ((decimal)(Original_TempCalFactor));
+            this.Adapter.DeleteCommand.Parameters[11].Value = ((decimal)(Original_RHCalFactor));
+            if ((Original_maxNightRH.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((decimal)(Original_maxNightRH.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((Original_maxNightTemp.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((decimal)(Original_maxNightTemp.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            if ((Original_alertTemp.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((decimal)(Original_alertTemp.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            if ((Original_alertRH.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[19].Value = ((decimal)(Original_alertRH.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(decimal maxVPD, decimal minVPD, decimal optTempDay, decimal optRHDay, decimal nightStart, decimal nightEnd, decimal tempRangeFactor, decimal RHRangeFactor, decimal lightsLPD, decimal TempCalFactor, decimal RHCalFactor, global::System.Nullable<decimal> maxNightRH, global::System.Nullable<decimal> maxNightTemp, global::System.Nullable<decimal> alertTemp, global::System.Nullable<decimal> alertRH) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((decimal)(maxVPD));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(minVPD));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(optTempDay));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(optRHDay));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(nightStart));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(nightEnd));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(tempRangeFactor));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(RHRangeFactor));
+            this.Adapter.InsertCommand.Parameters[8].Value = ((decimal)(lightsLPD));
+            this.Adapter.InsertCommand.Parameters[9].Value = ((decimal)(TempCalFactor));
+            this.Adapter.InsertCommand.Parameters[10].Value = ((decimal)(RHCalFactor));
+            if ((maxNightRH.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((decimal)(maxNightRH.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((maxNightTemp.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((decimal)(maxNightTemp.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((alertTemp.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[13].Value = ((decimal)(alertTemp.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((alertRH.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((decimal)(alertRH.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    decimal maxVPD, 
+                    decimal minVPD, 
+                    decimal optTempDay, 
+                    decimal optRHDay, 
+                    decimal nightStart, 
+                    decimal nightEnd, 
+                    decimal tempRangeFactor, 
+                    decimal RHRangeFactor, 
+                    decimal lightsLPD, 
+                    decimal TempCalFactor, 
+                    decimal RHCalFactor, 
+                    global::System.Nullable<decimal> maxNightRH, 
+                    global::System.Nullable<decimal> maxNightTemp, 
+                    global::System.Nullable<decimal> alertTemp, 
+                    global::System.Nullable<decimal> alertRH, 
+                    int Original_pKey, 
+                    decimal Original_maxVPD, 
+                    decimal Original_minVPD, 
+                    decimal Original_optTempDay, 
+                    decimal Original_optRHDay, 
+                    decimal Original_nightStart, 
+                    decimal Original_nightEnd, 
+                    decimal Original_tempRangeFactor, 
+                    decimal Original_RHRangeFactor, 
+                    decimal Original_lightsLPD, 
+                    decimal Original_TempCalFactor, 
+                    decimal Original_RHCalFactor, 
+                    global::System.Nullable<decimal> Original_maxNightRH, 
+                    global::System.Nullable<decimal> Original_maxNightTemp, 
+                    global::System.Nullable<decimal> Original_alertTemp, 
+                    global::System.Nullable<decimal> Original_alertRH, 
+                    int pKey) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((decimal)(maxVPD));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(minVPD));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(optTempDay));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(optRHDay));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(nightStart));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(nightEnd));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(tempRangeFactor));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(RHRangeFactor));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((decimal)(lightsLPD));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(TempCalFactor));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(RHCalFactor));
+            if ((maxNightRH.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(maxNightRH.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((maxNightTemp.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((decimal)(maxNightTemp.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((alertTemp.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((decimal)(alertTemp.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((alertRH.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((decimal)(alertRH.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_pKey));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_maxVPD));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(Original_minVPD));
+            this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(Original_optTempDay));
+            this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(Original_optRHDay));
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((decimal)(Original_nightStart));
+            this.Adapter.UpdateCommand.Parameters[21].Value = ((decimal)(Original_nightEnd));
+            this.Adapter.UpdateCommand.Parameters[22].Value = ((decimal)(Original_tempRangeFactor));
+            this.Adapter.UpdateCommand.Parameters[23].Value = ((decimal)(Original_RHRangeFactor));
+            this.Adapter.UpdateCommand.Parameters[24].Value = ((decimal)(Original_lightsLPD));
+            this.Adapter.UpdateCommand.Parameters[25].Value = ((decimal)(Original_TempCalFactor));
+            this.Adapter.UpdateCommand.Parameters[26].Value = ((decimal)(Original_RHCalFactor));
+            if ((Original_maxNightRH.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((decimal)(Original_maxNightRH.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
+            }
+            if ((Original_maxNightTemp.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((decimal)(Original_maxNightTemp.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
+            }
+            if ((Original_alertTemp.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((decimal)(Original_alertTemp.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[32].Value = global::System.DBNull.Value;
+            }
+            if ((Original_alertRH.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((decimal)(Original_alertRH.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[34].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[35].Value = ((int)(pKey));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    decimal maxVPD, 
+                    decimal minVPD, 
+                    decimal optTempDay, 
+                    decimal optRHDay, 
+                    decimal nightStart, 
+                    decimal nightEnd, 
+                    decimal tempRangeFactor, 
+                    decimal RHRangeFactor, 
+                    decimal lightsLPD, 
+                    decimal TempCalFactor, 
+                    decimal RHCalFactor, 
+                    global::System.Nullable<decimal> maxNightRH, 
+                    global::System.Nullable<decimal> maxNightTemp, 
+                    global::System.Nullable<decimal> alertTemp, 
+                    global::System.Nullable<decimal> alertRH, 
+                    int Original_pKey, 
+                    decimal Original_maxVPD, 
+                    decimal Original_minVPD, 
+                    decimal Original_optTempDay, 
+                    decimal Original_optRHDay, 
+                    decimal Original_nightStart, 
+                    decimal Original_nightEnd, 
+                    decimal Original_tempRangeFactor, 
+                    decimal Original_RHRangeFactor, 
+                    decimal Original_lightsLPD, 
+                    decimal Original_TempCalFactor, 
+                    decimal Original_RHCalFactor, 
+                    global::System.Nullable<decimal> Original_maxNightRH, 
+                    global::System.Nullable<decimal> Original_maxNightTemp, 
+                    global::System.Nullable<decimal> Original_alertTemp, 
+                    global::System.Nullable<decimal> Original_alertRH) {
+            return this.Update(maxVPD, minVPD, optTempDay, optRHDay, nightStart, nightEnd, tempRangeFactor, RHRangeFactor, lightsLPD, TempCalFactor, RHCalFactor, maxNightRH, maxNightTemp, alertTemp, alertRH, Original_pKey, Original_maxVPD, Original_minVPD, Original_optTempDay, Original_optRHDay, Original_nightStart, Original_nightEnd, Original_tempRangeFactor, Original_RHRangeFactor, Original_lightsLPD, Original_TempCalFactor, Original_RHCalFactor, Original_maxNightRH, Original_maxNightTemp, Original_alertTemp, Original_alertRH, Original_pKey);
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2548,6 +3985,8 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
     public partial class TableAdapterManager : global::System.ComponentModel.Component {
         
         private UpdateOrderOption _updateOrder;
+        
+        private SettingsTableAdapter _settingsTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -2561,6 +4000,20 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
             }
             set {
                 this._updateOrder = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public SettingsTableAdapter SettingsTableAdapter {
+            get {
+                return this._settingsTableAdapter;
+            }
+            set {
+                this._settingsTableAdapter = value;
             }
         }
         
@@ -2583,6 +4036,10 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
                 if ((this._connection != null)) {
                     return this._connection;
                 }
+                if (((this._settingsTableAdapter != null) 
+                            && (this._settingsTableAdapter.Connection != null))) {
+                    return this._settingsTableAdapter.Connection;
+                }
                 return null;
             }
             set {
@@ -2596,6 +4053,9 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
+                if ((this._settingsTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 return count;
             }
         }
@@ -2607,6 +4067,15 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(TentConrolDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._settingsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Settings.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._settingsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             return result;
         }
         
@@ -2617,6 +4086,14 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(TentConrolDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._settingsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Settings.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._settingsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             return result;
         }
         
@@ -2627,6 +4104,14 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateDeletedRows(TentConrolDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
+            if ((this._settingsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Settings.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._settingsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             return result;
         }
         
@@ -2666,6 +4151,11 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
             if ((dataSet.HasChanges() == false)) {
                 return 0;
             }
+            if (((this._settingsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._settingsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
             global::System.Data.IDbConnection workConnection = this.Connection;
             if ((workConnection == null)) {
                 throw new global::System.ApplicationException("TableAdapterManager contains no connection information. Set each TableAdapterMana" +
@@ -2698,6 +4188,15 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
             try {
                 // ---- Prepare for update -----------
                 //
+                if ((this._settingsTableAdapter != null)) {
+                    revertConnections.Add(this._settingsTableAdapter, this._settingsTableAdapter.Connection);
+                    this._settingsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._settingsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._settingsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._settingsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._settingsTableAdapter.Adapter);
+                    }
+                }
                 // 
                 //---- Perform updates -----------
                 //
@@ -2755,6 +4254,10 @@ namespace TentMonitorDesk2021.TentConrolDataSetTableAdapters {
             finally {
                 if (workConnOpened) {
                     workConnection.Close();
+                }
+                if ((this._settingsTableAdapter != null)) {
+                    this._settingsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._settingsTableAdapter]));
+                    this._settingsTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];
